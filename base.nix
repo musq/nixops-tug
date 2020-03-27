@@ -24,6 +24,17 @@
           xt = "nix-store";
         };
 
+        systemPackages = [
+          pkgs.bandwhich
+          pkgs.ccze
+          pkgs.fd
+          pkgs.gitMinimal
+          pkgs.htop
+          pkgs.ripgrep
+          pkgs.tree
+          pkgs.vim
+        ];
+
       };
     };
 }
