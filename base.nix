@@ -64,6 +64,7 @@
 
       nix = {
         allowedUsers = [ "boss" ];
+        autoOptimiseStore = true;
       };
 
       security = {
