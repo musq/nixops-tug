@@ -30,6 +30,7 @@
           pkgs.fd
           pkgs.gitMinimal
           pkgs.htop
+          pkgs.ncdu
           pkgs.ripgrep
           pkgs.tree
           pkgs.vim
