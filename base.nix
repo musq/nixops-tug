@@ -62,6 +62,10 @@
 
       };
 
+      security = {
+        sudo.wheelNeedsPassword = false;
+      };
+
       services = {
         openssh = {
 
