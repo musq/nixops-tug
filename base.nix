@@ -33,12 +33,9 @@
           pkgs.ncdu
           pkgs.ripgrep
           pkgs.tree
-          pkgs.vim
         ];
 
         variables = {
-          EDITOR = "vim";
-
           HISTCONTROL = "ignoredups"; # Ignore commands that are duplicates
           HISTFILESIZE = "5000";      # Lines in history file
           HISTIGNORE = "c:clear:exit:pwd";  # Ignore some commands from history file
@@ -127,6 +124,8 @@
           pubkeyAcceptedKeyTypes = hostKeyAlgorithms;
 
         };
+
+        vim.defaultEditor = true;
 
       };
 
