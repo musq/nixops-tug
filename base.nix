@@ -71,6 +71,17 @@
         sudo.wheelNeedsPassword = false;
       };
 
+      programs = {
+
+        less = {
+          enable = true;
+          envVariables = {
+            LESS = "--hilite-search --HILITE-UNREAD --ignore-case --squeeze-blank-lines --tabs=4";
+          };
+        };
+
+      };
+
       services = {
         openssh = {
 
