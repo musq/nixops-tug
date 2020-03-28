@@ -61,5 +61,60 @@
         };
 
       };
+
+      services = {
+        openssh = {
+
+          extraConfig = ''
+            # Allow client to pass locale environment variables
+            AcceptEnv LANG LC_*
+
+            # Send client alive messages through the encrypted channel
+            # to check if the client is still connected.
+            # Max time = 6*600s = 3600s
+            ClientAliveCountMax 6
+            ClientAliveInterval 600
+
+            # Use modern protocol with Public key authentication
+            Protocol 2
+
+            # Regenerate keys after a while
+            RekeyLimit 400M 3600
+
+            # Remove an existing Unix-domain socket file for local or
+            # remote port forwarding before creating a new one. Must be
+            # set to 'yes' for GnuPG Agent Forwarding
+            # https://wiki.gnupg.org/AgentForwarding
+            StreamLocalBindUnlink yes
+
+            # Assert appropriate 600 permissions on ssh files
+            StrictModes yes
+
+            # Logging
+            SyslogFacility AUTH
+
+            # Send keep-alive signals to avoid connection timeout
+            TCPKeepAlive yes
+          '';
+
+          hostKeys = [
+            {
+              path = "/etc/ssh/ssh_host_ed25519_key";
+              type = "ed25519";
+            }
+            {
+              bits = 4096;
+              path = "/etc/ssh/ssh_host_rsa_key";
+              type = "rsa";
+            }
+          ];
+
+          passwordAuthentication = false;
+          permitRootLogin = "without-password";
+          startWhenNeeded = true;
+
+        };
+      };
+
     };
 }
