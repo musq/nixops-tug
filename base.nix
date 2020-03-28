@@ -120,5 +120,21 @@
         };
       };
 
+      users = {
+        users = {
+
+          boss = {
+            uid = 1000;
+            description = "Boss Admin";
+            extraGroups = [ "wheel" ];
+            isNormalUser = true;
+            openssh.authorizedKeys.keys = [
+              "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJK827/gzPAZQaNsLdtBz/WK6HHJaFL85pF+gsP41SDl openpgp:0x7A6D112A"
+            ];
+          };
+
+        };
+      };
+
     };
 }
