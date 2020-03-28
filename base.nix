@@ -62,6 +62,10 @@
 
       };
 
+      nix = {
+        allowedUsers = [ "boss" ];
+      };
+
       security = {
         sudo.wheelNeedsPassword = false;
       };
