@@ -81,6 +81,53 @@
           };
         };
 
+        ssh =
+          let hostKeyAlgorithms = [
+            "ssh-ed25519-cert-v01@openssh.com"
+            "ssh-ed25519"
+          ]; in {
+
+          extraConfig = ''
+            Host *
+              # Check for changed server IPs or possible DNS spoofings
+              CheckHostIP yes
+              # Set max tries before exiting to 1
+              ConnectionAttempts 1
+              HashKnownHosts no
+
+              PasswordAuthentication no
+              # Use newer protocol
+              Protocol 2
+              PubkeyAuthentication yes
+
+              # Regenerate keys after a while
+              RekeyLimit 200M 3600
+              # Send server alive messages through the encrypted channel
+              # to check if the server is still connected.
+              # Max time = 6*600s = 3600s
+              ServerAliveCountMax 6
+              ServerAliveInterval 600
+
+              # Ask to verify server fingerprint
+              StrictHostKeyChecking ask
+              # Don't send keep-alive signals. We're using ServerAlive params
+              TCPKeepAlive no
+              # Ask user to verify insecure DNS fingerprints
+              VerifyHostKeyDNS ask
+              # https://security.stackexchange.com/questions/110639/how-exploitable-is-the-recent-useroaming-ssh-problem
+              UseRoaming no
+
+              # High security (https://sshaudit.com)
+              Ciphers           chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr
+              KexAlgorithms     curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256
+              MACs              hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com
+          '';
+
+          hostKeyAlgorithms = hostKeyAlgorithms;
+          pubkeyAcceptedKeyTypes = hostKeyAlgorithms;
+
+        };
+
       };
 
       services = {
