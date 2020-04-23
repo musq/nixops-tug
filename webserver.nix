@@ -10,8 +10,9 @@
 
   tug =
     { config, pkgs, ... }:
-    {
-      imports = [ ./base.nix ];
+
+    let dataPath = path: "/var/lib/" + path;
+    in {
 
       security = {
         dhparams = {
@@ -19,6 +20,23 @@
           params = {
             nginx = {};
           };
+        };
+      };
+
+      services = {
+        nginx = {
+
+          enable = true;
+          enableReload = true;
+
+          recommendedOptimisation = true;
+          recommendedProxySettings = true;
+          recommendedTlsSettings = true;
+
+          sslCiphers = "EECDH+AESGCM:EDH+AESGCM";
+          sslDhparam = dataPath "dhparams/nginx.pem";
+          sslProtocols = "TLSv1.3 TLSv1.2";
+
         };
       };
 
