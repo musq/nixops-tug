@@ -1,5 +1,12 @@
 {
-  network.description = "tug.ro";
+  network = {
+    description = "tug.ro";
+    enableRollback = true;
+  };
+
+  defaults = {
+    imports = [ ./base.nix ];
+  };
 
   tug =
     { config, pkgs, ... }:
